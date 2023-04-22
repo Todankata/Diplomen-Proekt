@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="best-receipe-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    {% if 'search' in request.path %}
+                    <h3>Резултат от търсенето</h3>
+                    {% else %}
+                    <h3>Рецепти</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for recipe in recipes %}
+            <!-- Single Best Receipe Area -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="single-best-receipe-area mb-30">
+                    
+                    <div class="receipe-content">
+                        <a href="{{ recipe.get_url }}">
+                            <img src="{{ recipe.images.url }}"> 
+                            <h5>{{ recipe.recipe_name }}</h5>
+                        </a>
+                        <div class="rating-star">
+                            <span>
+                                <i class="fa fa-star{% if recipe.averageReview < 0.5 %}-o{% elif recipe.averageReview >= 0.5 and recipe.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if recipe.averageReview < 1.5 %}-o{% elif recipe.averageReview >= 1.5 and recipe.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if recipe.averageReview < 2.5 %}-o{% elif recipe.averageReview >= 2.5 and recipe.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if recipe.averageReview < 3.5 %}-o{% elif recipe.averageReview >= 3.5 and recipe.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if recipe.averageReview < 4.5 %}-o{% elif recipe.averageReview >= 4.5 and recipe.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <nav class="mt-4" aria-label="Page navigation sample">
+        {% if recipes.has_other_pages %}
+        <ul class="pagination">
+            {% if recipes.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{recipes.previous_page_number}}">Предишна</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Предишна</a></li>
+            {% endif %}
+
+            {% for i in recipes.paginator.page_range %}
+            {% if recipes.number == i %}
+            <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if recipes.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{recipes.next_page_number}}">Следваща</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Следваща</a></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </nav>
+</section>
+
+{% endblock content %}

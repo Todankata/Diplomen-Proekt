@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="ftco-section">
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-md-12 col-lg-6">
+              <div class="card">
+                  <div class="card-body login-wrap p-4 p-md-5">
+                      <div class="d-flex">
+                          <div class="w-100">
+                              <h3>Редактиране на профил</h3>
+                          </div>
+                      </div>
+                      <form method="POST" action="{% url 'edit_profile' %}">
+                          {% csrf_token %}
+                          <div class="form-group">
+                              <label for="id_first_name">Име:</label>
+                              <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ user.first_name }}" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="id_last_name">Фамилия:</label>
+                              <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ user.last_name }}" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="id_username">Профилно име:</label>
+                              <input type="text" class="form-control" id="id_username" name="username" value="{{ user.username }}" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="id_email">Емайл:</label>
+                              <input type="email" class="form-control" id="id_email" name="email" value="{{ user.email }}" required>
+                          </div>
+                          <button type="submit" class="btn btn-primary rounded submit">Запази</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+{% endblock %}

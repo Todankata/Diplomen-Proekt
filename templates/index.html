@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide bg-img" style="background-image: url(/static/img/bg-img/bg1.jpg);">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Всички рецепти</h2>
+                            <p data-animation="fadeInUp" data-delay="700ms">Тук може да видите всички рецепти.</p>
+                            <a href="{% url 'recipes' %}" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">Виж</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide bg-img" style="background-image: url(/static/img/bg-img/bg2.jpg);">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Всички рецепти</h2>
+                            <p data-animation="fadeInUp" data-delay="700ms">Тук може да видите всички рецепти.</p>
+                            <a href="{% url 'recipes' %}" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">Виж</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide bg-img" style="background-image: url(/static/img/bg-img/bg3.jpg);">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Всички рецепти</h2>
+                            <p data-animation="fadeInUp" data-delay="700ms">Тук може да видите всички рецепти.</p>
+                            <a href="{% url 'recipes' %}" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">Виж</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+     <!-- ##### Top Catagory Area Start ##### -->
+     <section class="top-catagory-area section-padding-80-0">
+        <div class="container">
+            <div class="row">
+                {% for recipe in recipes|slice:":3" %}
+                <!-- Top Catagory Area -->
+                <div class="col-12 col-lg-4">
+                    
+                    <div class="single-top-catagory">
+                        <img src="{{ recipe.images.url }}">
+                        <!-- Content -->
+                        <div class="top-cta-content">
+                            <h3>{{ recipe.recipe_name }}</h3>
+                            <a href="{{ recipe.get_url }}" class="btn delicious-btn">Вижте пълната рецепта</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+     </section>
+    <!-- ##### Best Receipe Area Start ##### -->
+    <section class="best-receipe-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Най-добрите рецепти</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                {% for recipe in recipes|slice:":6" %}
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <a href="{{ recipe.get_url }}"> <img src="{{ recipe.images.url }}"> </a>
+                        <div class="receipe-content">
+                            <a href="{{ recipe.get_url }}">
+                                <h5>{{ recipe.recipe_name }}</h5>
+                            </a>
+                            <div class="ratings">
+                                <span>
+                                    <i class="fa fa-star{% if recipe.averageReview < 0.5 %}-o{% elif recipe.averageReview >= 0.5 and recipe.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if recipe.averageReview < 1.5 %}-o{% elif recipe.averageReview >= 1.5 and recipe.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if recipe.averageReview < 2.5 %}-o{% elif recipe.averageReview >= 2.5 and recipe.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if recipe.averageReview < 3.5 %}-o{% elif recipe.averageReview >= 3.5 and recipe.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if recipe.averageReview < 4.5 %}-o{% elif recipe.averageReview >= 4.5 and recipe.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    </section>
+    <!-- ##### Best Receipe Area End ##### -->
+    
+    <section class="cta-area bg-img bg-overlay cta-area" style="background-image: url(/static/img/bg-img/bg4.jpg);">
+        {% if user.id is None %} 
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <!-- Cta Content -->
+                    <div class="cta-content text-center">
+                        <h2>Направете си акаунт</h2>
+                        <p>С направата на акаунт, вие ще можете да коментирате рецепти и да давате вашата оценка за тях</p>
+                        <a href="{% url 'register' %}" class="btn delicious-btn">Създай акаунт</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <!-- Cta Content -->
+                    <div class="cta-content text-center">
+                        <h2>Табло</h2>
+                        <p>Тук може да видите информацията за Вашият акаунт.</p>
+                        <a href="{% url 'dashboard' %}" class="btn delicious-btn">Виж</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+    <!-- ##### Small Receipe Area Start ##### -->
+    <section class="small-receipe-area section-padding-80-0">
+        <div class="container">
+            <div class="row">
+
+                <!-- Small Receipe Area -->
+                {% for recipe in recipes|slice:":9"  %}
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-small-receipe-area d-flex">
+                        <!-- Receipe Thumb -->
+                        <div class="receipe-thumb">
+                            <img src="{{ recipe.images.url }}">
+                        </div>
+                        <!-- Receipe Content -->
+                        <div class="receipe-content">
+                            <span>{{ recipe.created_date|date:"F d, Y" }}</span>
+                            <a href="{{ recipe.get_url }}">
+                                <h5>{{ recipe.recipe_name }}</h5>
+                            </a>
+                            <div class="rating-star">
+                                <span>
+                                    <i class="fa fa-star{% if recipe.averageReview < 0.5 %}-o{% elif recipe.averageReview >= 0.5 and recipe.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if recipe.averageReview < 1.5 %}-o{% elif recipe.averageReview >= 1.5 and recipe.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if recipe.averageReview < 2.5 %}-o{% elif recipe.averageReview >= 2.5 and recipe.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if recipe.averageReview < 3.5 %}-o{% elif recipe.averageReview >= 3.5 and recipe.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if recipe.averageReview < 4.5 %}-o{% elif recipe.averageReview >= 4.5 and recipe.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                    </span>
+                            </div>
+                            <span>{{recipe.countReview}} отзиви</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- ##### Small Receipe Area End ##### -->
+
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-6">
+                <div class="login-wrap p-4 p-md-5">
+                    <div class="d-flex">
+                        <div class="w-100">
+                            <h3 class="mb-4">Регистрирай се</h3>
+                        </div>
+                    </div>
+                	{% include 'includes/alerts.html' %}
+
+                    <form action="{% url 'register' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <label>Първо име</label>
+                                {{ form.first_name }}
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// --><div class="form-row">
+                            <div class="col form-group">
+                                <label>Последно име</label>
+                                {{ form.last_name }}
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <label>Потребителско име</label>
+                                {{ form.username }}
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <label>Имейл адрес</label>
+                                {{ form.email }}
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Създай парола</label>
+                                {{ form.password }}
+                            </div> <!-- form-group end.// -->
+                            <div class="form-group col-md-6">
+                                <label>Повтори парола</label>
+                                {{ form.confirm_password }}
+                            </div> <!-- form-group end.// -->
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary rounded submit px-3">Регистрирай ме</button>
+                        </div>
+                        {{ form.email.errors }}
+                        {{ form.non_field_errors }}
+                    </form>
+                    <div class="form-group">
+                        <p class="mt-3 text-dark"> Имаш акаунт? <a href="{% url 'login' %}" class="btn btn-outline-info">Влез</a></p>
+                    </div> <!-- form-group form-check .// -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+{% endblock %}

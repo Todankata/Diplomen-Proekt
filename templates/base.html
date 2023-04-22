@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="max-age=604800" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Delicious - Food Blog | Home</title>
+
+
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css"/>
+
+
+</head>
+<body>
+    {% include 'includes/search.html' %}
+
+    {% include 'includes/heading.html' %}
+
+    {% block content %}
+
+    <!-- content -->
+
+    {% endblock content %}
+
+    {% include 'includes/footer.html' %}
+
+    
+    <!-- jQuery-2.2.4 js -->
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <!-- All Plugins js -->
+    <script src="{% static 'js/plugins/plugins.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'js/active.js' %}"></script>
+
+</body>
+    
+</html>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-6">
+                <div class="card">
+                    <div class="card-body login-wrap p-4 p-md-5">
+                        <div class="d-flex">
+                            <div class="w-100">
+                                <h3>Табло</h3>
+                            </div>
+                        </div>
+                        {% include 'includes/alerts.html' %}
+
+                        <h4 class="mt-4">Добре дошъл, {{ user.username }}!</h4>
+                        <div class="form-group">
+                            <h5 class="mt-4">Върни се обратно в главната страница</h5>
+                            <a href="{% url 'index' %}" class="btn btn-info">Връщане</a>
+                        </div>
+                        
+                        <div class="form-group">
+                            <h5 class="mt-4">Профилна информация</h5>
+                            <a href="{% url 'profile_information' %}" class="btn btn-primary">Профилна информация</a>    
+                        </div>
+
+                        <div class="form-group">
+                            <h5 class="mt-4">Смени паролата</h5>
+                            <a href="{% url 'change_password' %}" class="btn btn-primary">Смени паролата</a>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="ftco-section">
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-md-12 col-lg-6">
+              <div class="card">
+                  <div class="card-body login-wrap p-4 p-md-5">
+                      <div class="d-flex">
+                          <div class="w-100">
+                              <h3>Профилна информация</h3>
+                          </div>
+                      </div>
+                      <ul style="font-size: 18px;">
+                        <li><strong>Име:</strong> {{ user.first_name }}</li>
+                        <li><strong>Фамилия:</strong> {{ user.last_name }}</li>
+                        <li><strong>профилно име:</strong> {{ user.username }}</li>
+                        <li><strong>емайл:</strong> {{ user.email }}</li>
+                      </ul>
+
+                      <div class="d-flex justify-content-center mt-4">
+                          <a href="{% url 'edit_profile' %}" class="form-control btn btn-primary rounded submit px-3">Редактиране на профила</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+{% endblock %}

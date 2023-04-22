@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    @media only screen and (min-width: 768px) {
+      /* CSS styles here will only apply to screens above 768px */
+
+      /* For example, you can add a margin-top to the ingredients list */
+      .ingr {
+        margin-top: 75px;
+        margin-left: -100px;
+      }
+      .txtr {
+        margin-left: -100px;
+      }
+    }
+</style>
+
+<!-- Receipe Slider -->
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <img src="{{ single_recipe.images.url }}">
+        </div>
+    </div>
+</div>
+
+<!-- Receipe Content Area -->
+<div class="receipe-content-area">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 col-md-8 ">
+                <div class="receipe-headline my-5">
+                    <span>{{ single_recipe.created_date|date:"F d, Y" }}</span>
+                    <h2>{{ single_recipe.recipe_name }}</h2>
+                    <div class="receipe-ratings">
+                        <span>
+                            <i class="fa fa-star{% if single_recipe.averageReview < 0.5 %}-o{% elif single_recipe.averageReview >= 0.5 and single_recipe.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if single_recipe.averageReview < 1.5 %}-o{% elif single_recipe.averageReview >= 1.5 and single_recipe.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if single_recipe.averageReview < 2.5 %}-o{% elif single_recipe.averageReview >= 2.5 and single_recipe.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if single_recipe.averageReview < 3.5 %}-o{% elif single_recipe.averageReview >= 3.5 and single_recipe.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if single_recipe.averageReview < 4.5 %}-o{% elif single_recipe.averageReview >= 4.5 and single_recipe.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                    </div>
+                    <div class="receipe-duration">
+                        <h5>Подготовка: {{ single_recipe.preparation }} мин</h6>
+                        <h5>Готвене: {{ single_recipe.cook }} мин</h6>
+                        <h5>Пропорции: {{ single_recipe.yields }} порции</h6>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ingredients -->
+            <div class="col-12 col-lg-4">
+                <div>
+                    <h4 class="ingr">Съставки</h4>
+                    <div class="single-preparation-step d-flex">
+                        <h6 class="txtr">{{ single_recipe.ingredients }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                <h4>Описание</h4>
+                <!-- Single Preparation Step -->
+                <div class="single-preparation-step d-flex">
+                    <h6>{{ single_recipe.description }}</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-left">
+                    <h3>Напишете вашето мнение</h3>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="contact-form-area">
+                            <form action="{% url 'submit_review' single_recipe.id %}" method="POST">
+                                {% csrf_token %}
+                                    <!-- Rating stars -->
+                                    <label>Как оценявате тази рецепта?</label>
+                                    <br>
+                                    <div class="rate">
+                                        <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+                                        <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+                                        <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+                                        <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+                                        <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+                                        <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+                                        <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+                                        <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+                                        <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+                                        <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+                                    </div>
+                                    {% include 'includes/alerts.html' %}
+
+                                    <div class="col-12">
+                                        <input name="subject" type="text" class="form-control" id="subject" placeholder="Заглавие на коментар" required maxlength="50" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea name="review" class="form-control" cols="30" rows="10" placeholder="Коментар" required maxlength="100" required oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></textarea>
+                                    </div>
+                                <div class="col-12">
+                                    {% if user.is_authenticated %}
+                                    <input type="submit" value="Добави коментар" class="btn delicious-btn mt-30">
+                                    {% else %}
+                                    <h6>Трябва да сте влезли, за да публикувате отзив. <span><a href="{% url 'login' %}" class="btn btn-outline-info">Влез сега</a></span></h6>			
+                                    {% endif %}
+                                </div>
+                            </form>
+
+                            <header class="section-heading">
+                                <h3>Отзиви</h3>
+                                <div class="rating-star">
+                                    <span>
+                                        <i class="fa fa-star{% if single_recipe.averageReview < 0.5 %}-o{% elif single_recipe.averageReview >= 0.5 and single_recipe.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if single_recipe.averageReview < 1.5 %}-o{% elif single_recipe.averageReview >= 1.5 and single_recipe.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if single_recipe.averageReview < 2.5 %}-o{% elif single_recipe.averageReview >= 2.5 and single_recipe.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if single_recipe.averageReview < 3.5 %}-o{% elif single_recipe.averageReview >= 3.5 and single_recipe.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if single_recipe.averageReview < 4.5 %}-o{% elif single_recipe.averageReview >= 4.5 and single_recipe.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                        <span>{{single_recipe.countReview}} отзиви</span>
+                                    </div>
+                            </header>
+                            {% for review in reviews %}
+			            	<article class="box mb-3 text-dark">
+			            		<div class="icontext w-100">
+			            			<div class="text">
+			            				<span class="date text-muted float-md-right">{{review.updated_at}} </span>
+			            				<h6 class="mb-1">{{review.user.username}} </h6>
+			            				<div class="rating-star">
+			            					<span>
+			            						<i class="fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+			            						<i class="fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+			            						<i class="fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+			            						<i class="fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+			            						<i class="fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+			            					</span>
+			            				</div>
+				            		</div>
+				            	</div> <!-- icontext.// -->
+				            	<div class="mt-3 text-dark">
+				            		<h6>{{review.subject}}</h6>
+				            		<p>
+				            			{{review.review}}
+				            		</p>
+				            	</div>
+				            </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     <!--  here notepad 2222-->
+    </div>
+</div>
+
+{% endblock content %}
