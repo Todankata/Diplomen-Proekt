@@ -26,7 +26,7 @@ def recipes(request, category_slug=None):
         recipe_count = recipes.count()
     else:
         recipes = Recipe.objects.all().order_by('id')
-        paginator = Paginator(recipes, 6)
+        paginator = Paginator(recipes, 9)
         page = request.GET.get('page')
         paged_recipes = paginator.get_page(page)
         recipe_count = recipes.count()
