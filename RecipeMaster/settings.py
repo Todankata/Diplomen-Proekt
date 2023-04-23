@@ -132,6 +132,7 @@ DATE_FORMAT = "d F Y"
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesSTorage'
 STATICFILES_DIRS = [
     'recipemaster/static',
 ]
