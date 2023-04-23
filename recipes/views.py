@@ -20,7 +20,7 @@ def recipes(request, category_slug=None):
     if category_slug != None:
         categories = get_object_or_404(Category, slug=category_slug)
         recipes = Recipe.objects.filter(category=categories)
-        paginator = Paginator(recipes, 6)
+        paginator = Paginator(recipes, 9)
         page = request.GET.get('page')
         paged_recipes = paginator.get_page(page)
         recipe_count = recipes.count()
