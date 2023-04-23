@@ -10,7 +10,7 @@ from django.urls import reverse
 class Recipe(models.Model):
     recipe_name     = models.CharField(max_length=50, unique=True)
     slug            = models.SlugField(max_length=50, unique=True)
-    description     = models.TextField(max_length=300, blank=True)
+    description     = models.TextField(max_length=2000, blank=True)
     ingredients     = models.TextField(blank=True)
     preparation     = models.IntegerField(blank=True)
     cook            = models.IntegerField(blank=True)
