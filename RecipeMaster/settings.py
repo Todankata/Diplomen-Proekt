@@ -52,7 +52,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'RecipeMaster.urls'
@@ -134,7 +133,7 @@ DATE_FORMAT = "d F Y"
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesSTorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 STATICFILES_DIRS = [
     'recipemaster/static',
 ]
