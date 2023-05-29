@@ -58,7 +58,7 @@ def search(request):
     if 'search' in request.GET:
         keyword = request.GET['search']
         if keyword:
-            recipes = Recipe.objects.order_by('-created_date').filter(Q(recipe_name__icontains=keyword))
+            recipes = Recipe.objects.order_by('-created_date').filter(Q(recipe_name__icontains=keyword) | Q(ingredients__icontains=keyword))
             recipe_count = recipes.count()
     context = {
         'recipes': recipes,

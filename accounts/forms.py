@@ -20,7 +20,7 @@ class RegistrationForm(forms.ModelForm):
         super(RegistrationForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].widget.attrs['placeholder'] = 'Въведи първо име'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Въведи последно име'
-        self.fields['username'].widget.attrs['placeholder'] = 'Въведи потребителско име'
+        
         self.fields['email'].widget.attrs['placeholder'] = 'Въведи емейл адрес'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
